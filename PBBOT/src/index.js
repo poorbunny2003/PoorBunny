@@ -1,18 +1,12 @@
+// index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faRobot, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import './index.css';  // Optional, for styles
+import ChatContainer from './components/ChatContainer';  // Importing your main chat container
 
-
-library.add(faRobot, faPaperPlane);
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChatContainer />  {/* Make sure ChatContainer is rendered */}
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root')  // Ensure this matches the id in your HTML
 );
-
-reportWebVitals();
