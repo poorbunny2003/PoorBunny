@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoorBunnyBot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+<body>
+    
+    <div class="chat-container">
+        <div class="header-container">
+           
+           <center> <h2>PoorBunny</h2></center>
+          </div>
+          
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    Hi! I'm PoorBunny. How can I help you?
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="PB ask.." autofocus>
+            <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js">
+  document.addEventListener('DOMContentLoaded', function() {
+    const chatMessages = document.getElementById('chat-messages');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    
+    function addMessage(content, isUser) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('message-content');
+        contentDiv.textContent = content;
+        
+        messageDiv.appendChild(contentDiv);
+        chatMessages.appendChild(messageDiv);
+        
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function getBotResponse(userMessage) {
+        const message = userMessage.toLowerCase();
+        
+        if (message.includes('bonjour') || message.includes('salut') || message.includes('coucou')) {
+            return "Bonjour ! Comment puis-je vous aider aujourd'hui ?";
+        } else if (message.includes('ça va') || message.includes('comment vas-tu')) {
+            return "Je suis un programme, donc je n'ai pas de sentiments, mais merci de demander ! Et vous ?";
+        } else if (message.includes('aide') || message.includes('support')) {
+            return "Je peux répondre à vos questions simples. Essayez de me demander quelque chose !";
+        } else if (message.includes('merci')) {
+            return "Je vous en prie ! N'hésitez pas si vous avez d'autres questions.";
+        } else if (message.includes('au revoir') || message.includes('bye')) {
+            return "Au revoir ! Passez une excellente journée !";
+        } else {
+            return "Je ne suis pas sûr de comprendre. Pourriez-vous reformuler votre question ?";
+        }
+    }
+    
+    function handleSendMessage() {
+        const message = userInput.value.trim();
+        if (message === '') return;
+        
+    
+        addMessage(message, true);
+        userInput.value = '';
+        
+        
+        setTimeout(() => {
+            const botResponse = getBotResponse(message);
+            addMessage(botResponse, false);
+        }, 800);
+    }
+    
+   
+    sendButton.addEventListener('click', handleSendMessage);
+    
+    userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            handleSendMessage();
+        }
+    });
+    
+    
+    userInput.focus();
+});
+
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoorBunnyBot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 500px;
+    height: 600px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: #4a6fa5;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.chat-bot-icon {
+    font-size: 1.5rem;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    line-height: 1.4;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #4a6fa5;
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #f0f0f0;
+    color: #333;
+    border-bottom-left-radius: 5px;
+}
+
+.message-content {
+    font-size: 0.95rem;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.chat-input button {
+    background-color: #4a6fa5;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-input button:hover {
+    background-color: #3a5a80;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+</style>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>PB</h2>
+            <div class="chat-bot-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    Bonjour! Je suis PB, un assistant virtuel. Comment puis-je vous aider ?
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Tapez votre message ici..." autofocus>
+            <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js">
+    document.addEventListener('DOMContentLoaded', function() {
+    const chatMessages = document.getElementById('chat-messages');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    
+    function addMessage(content, isUser) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('message-content');
+        contentDiv.textContent = content;
+        
+        messageDiv.appendChild(contentDiv);
+        chatMessages.appendChild(messageDiv);
+        
+        
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function getBotResponse(userMessage) {
+        // Ici, vous pourriez intégrer une API de chatbot comme Dialogflow, Rasa, etc.
+        // Pour cet exemple, nous utilisons des réponses simples
+        
+        const message = userMessage.toLowerCase();
+        
+        if (message.includes('bonjour') || message.includes('salut') || message.includes('coucou')) {
+            return "Bonjour ! Comment puis-je vous aider aujourd'hui ?";
+        } else if (message.includes('ça va') || message.includes('comment vas-tu')) {
+            return "Je suis un programme, donc je n'ai pas de sentiments, mais merci de demander ! Et vous ?";
+        } else if (message.includes('aide') || message.includes('support')) {
+            return "Je peux répondre à vos questions simples. Essayez de me demander quelque chose !";
+        } else if (message.includes('merci')) {
+            return "Je vous en prie ! N'hésitez pas si vous avez d'autres questions.";
+        } else if (message.includes('au revoir') || message.includes('bye')) {
+            return "Au revoir ! Passez une excellente journée !";
+        } else {
+            return "Je ne suis pas sûr de comprendre. Pourriez-vous reformuler votre question ?";
+        }
+    }
+    
+    function sendMessage() {
+        const message = userInput.value.trim();
+        if (message === '') return;
+        
+        addMessage(message, true);
+        userInput.value = '';
+        
+        
+        setTimeout(() => {
+            const botResponse = getBotResponse(message);
+            addMessage(botResponse, false);
+        }, 800);
+    }
+    
+  
+    sendButton.addEventListener('click', sendMessage);
+    
+    userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+   
+    userInput.focus();
+});
+
+
+
+	</script>
+</body>
+</html>
