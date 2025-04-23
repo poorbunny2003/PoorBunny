@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ChatHeader from './ChatHeader';
 import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
+import './index.css';
 
 const ChatContainer = () => {
   const [messages, setMessages] = useState([

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import './index.css';
 import ChatContainer from './components/ChatContainer';
 
 function App() {
