@@ -59,7 +59,13 @@ body {
     box-shadow: transparent; 
   }
   
-  
+  .chat-header img{
+      height: auto;
+      max-height: 50%;
+      width: auto;
+      max-width: 25%;
+
+  }
   
   
   .chat-messages {
@@ -83,7 +89,7 @@ body {
   
   .user-message {
     align-self: flex-end;
-    background-color:transparent;
+    background-color:#bd610b;
     color: white;
     border-bottom-right-radius: 5px;
   }
