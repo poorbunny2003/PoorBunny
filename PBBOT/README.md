@@ -1,3 +1,0 @@
-# MY PORTFOLIO ⓘ
-![](./ui.png)
-
